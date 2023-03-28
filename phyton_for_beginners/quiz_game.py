@@ -1,40 +1,42 @@
-print("Welcome to my computer quiz")
 
-playing = input("Do you want to play? ").lower()
+class Question:
+    def __init__(self, prompt, answer):
+        self.prompt = prompt
+        self.answer = answer
+        questions = [
+            {"prompt": "What does CPU stand for?\n(a) Central Processing Unit\n(b) Central Program Unit\n(c) Central Processor Unit\n\n", "answer": "a"},
+            {"prompt": "What does GPU stand for?\n(a) Graphics Processing Unit\n(b) Graphics Program Unit\n(c) Graphics Processor Unit\n\n", "answer": "a"},
+            {"prompt": "What does RAM stand for?\n(a) Random Access Memory\n(b) Random Allocation Memory\n(c) Random Access Memory\n\n", "answer": "a"},
+            {"prompt": "What does PSU stand for?\n(a) Power Supply Unit\n(b) Power System Unit\n(c) Power Supply Unit\n\n", "answer": "a"}
+        ]
+    
+    def check_answer(self, answer):
+        return self.answer == answer
 
-if playing != "yes":
-    print("Okay, bye!")
-    quit()
+class Quiz:
+    def __init__(self, questions):
+        self.questions = questions
+        self.score = 0
+    
+    def run_quiz(self):
+        for question in self.questions:
+            answer = input(question.prompt)
+            if question.check_answer(answer):
+                self.score += 1
+        print(f"You got {self.score} / {len(self.questions)} correct")
 
-print("Okay! Let's play :)")
-score = 0
+class QuizGame:
+    def __init__(self):
+        self.questions = [
+            Question("What does CPU stand for?\n(a) Central Processing Unit\n(b) Central Program Unit\n(c) Central Processor Unit\n\n", "a"),
+            Question("What does GPU stand for?\n(a) Graphics Processing Unit\n(b) Graphics Program Unit\n(c) Graphics Processor Unit\n\n", "a"),
+            Question("What does RAM stand for?\n(a) Random Access Memory\n(b) Random Allocation Memory\n(c) Random Access Memory\n\n", "a"),
+            Question("What does PSU stand for?\n(a) Power Supply Unit\n(b) Power System Unit\n(c) Power Supply Unit\n\n", "a")
+        ]
+        self.quiz = Quiz(self.questions)
+    
+    def run(self):
+        self.quiz.run_quiz()
 
-answer = input("What does CPU stand for? ").lower()
-if answer == "central processing unit":
-    print("Correct!")
-    score +=1
-else:
-    print("Incorrect!")
-
-answer = input("What does GPU stand for? ").lower()
-if answer == "graphics processing unit":
-    print("Correct!")
-    score +=1
-else:
-    print("Incorrect!")
-
-answer = input("What does RAM stand for? ").lower()
-if answer == "random access memory":
-    print("Correct!")
-    score +=1
-else:
-    print("Incorrect!")
-
-answer = input("What does PSU stand for? ").lower()
-if answer == "power supply unit":
-    print("Correct!")
-    score +=1
-else:
-    print("Incorrect!")
-
-print("You got " + str(score) + " questions correct! " + str(score/4*100) + "% accuracy")
+q = QuizGame()
+q.run()
